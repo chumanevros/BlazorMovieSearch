@@ -1,0 +1,11 @@
+CloudStoreServices/obj/
+CloudStoreWeb/.vs/
+CloudStoreWeb/bin/
+CloudStoreWeb/obj/
+CloudStoreWeb/packages/
+packages/
+EFGenerate/obj/
+.vs/
+CloudStoreServices/bin/
+obj/
+bin/

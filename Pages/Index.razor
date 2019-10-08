@@ -1,0 +1,38 @@
+﻿@page "/"
+@inject HttpClient httpClient
+@using BlazorMovieOana.ViewModel
+
+<h4> Movie Search</h4>
+<input placeholder="Movie Name" @oninput="(val) => MovieSearch(val)" />
+
+@if (searchresult != null && searchresult.Search != null && searchresult.Search.Count != 0)
+{
+
+<div class="row">
+    @foreach (var item in searchresult.Search)
+    {
+        <div class="col-3">
+            <div class="card">
+                <div class="card-header">@item.Title</div>
+                <div class="card-body"> <img src="@item.Poster" /></div>
+                <div class="card-footer">Year : @item.Year</div>
+            </div>
+
+        </div>
+    }
+
+</div>
+}
+
+@code {
+
+    private SearchResult searchresult { get; set; }
+
+    private async Task MovieSearch(ChangeEventArgs val)
+    {
+        string title = val.Value.ToString();
+
+        var url = String.Format(@"http://www.omdbapi.com/?s={0}&apikey=aadd6e5e",title);
+        searchresult = await httpClient.GetJsonAsync<SearchResult>(url);
+    }
+}

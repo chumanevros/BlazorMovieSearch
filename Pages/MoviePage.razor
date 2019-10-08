@@ -1,0 +1,31 @@
+﻿@page "/movie"
+@inject HttpClient httpClient
+@using BlazorMovieOana.ViewModel
+
+<h4> Movie Search</h4>
+
+@if (movie == null)
+{
+    <p> Loading </p>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">@movie.Title</div>
+        <div class="card-body"> <img src="@movie.Poster" /></div>
+        <div class="card-footer">Year : @movie.Year</div>
+    </div>
+}
+
+@code {
+    private Movie movie { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var url = @"http://www.omdbapi.com/?i=tt3896198&apikey=aadd6e5e";
+        movie = await httpClient.GetJsonAsync<Movie>(url);
+
+        // forecasts = await Http.GetJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+    }
+
+}
